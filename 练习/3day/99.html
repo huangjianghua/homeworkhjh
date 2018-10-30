@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>9*9</title>
+    <style>
+        .tables table{
+            border:none;
+            width: 800px;
+            height: 400px;
+            border-bottom: 1px solid saddlebrown;
+        }
+        .active{
+            background: #eee;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="tables">
+        <table border="1" align="center" cellpadding="1" cellspacing="1">
+            <tr align="center" bgcolor="red" v-for="(item,index) in arr1">
+                <td v-for="(hjh,tdindex) in Array(index+1)"
+                :class="{
+                    active:selectindex === index
+                }"
+                @click="selectindex = index"
+                >{{index+1}}x{{tdindex+1}}={{(index+1)*(tdindex+1)}}</td>
+            </tr>
+        </table>
+    </div>    
+    
+    <script src="./vue.js"></script>
+    <script>
+    const vm=new Vue({
+        el:'.tables',
+        data:{
+            selectindex:0,
+            arr1:Array(9),
+        }
+    })
+    </script>
+    
+</body>
+</html>

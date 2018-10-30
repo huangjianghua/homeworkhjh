@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉列表</title>
+    <style>
+        .app{
+            width: 320px;
+            margin: 90px auto;
+        }
+        .menu {
+            width: 400px;
+            height: 40px;
+            border: 1px solid #000;
+            list-style: none;
+            padding: 0;
+            background: #999;
+        }
+        .menu li {
+            border-bottom: 1px solid #000;
+        }
+
+        .menu li .label {
+            padding-left: 10px;
+            height: 40px;
+            line-height: 35px;
+            background: #fff;
+            position: relative;
+        }
+        .menu li .label span{
+            width: 0px;
+            height: 0px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #999;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            cursor: pointer;
+        }
+        .menu li .label input{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 360px;
+            height: 34px;
+            z-index: 100;
+        }
+        .menu li .child {
+            padding: 0;
+            list-style: none;
+            
+        }
+
+        .menu li .child>li {
+            height: 40px;
+            line-height: 30px;
+            border: none;
+        }
+
+        .menu li .child>li .label{
+            border: 1px solid saddlebrown;
+            padding-left: 20px;
+            background: none;
+            border-bottom: none;
+        }
+        .active{
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <ul class="menu">
+            <li v-for="item in menu">
+                <div class="label" v-on:click="show(item)">
+                    {{item.label}}
+                    <span></span>
+                    <input type="text" v-model="input">
+                </div>
+                <ul class="child" v-show="item.show">
+                    <li v-for="(child,index) in item.children"
+                    :class="{
+                        active: selectIndex === index
+                    }"
+                    @click=" selectIndex = index"
+                    >
+                        <div class="label">
+                            {{child.label}}
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            methods: {
+                show(item) {
+                    item.show = !item.show
+                    this.menu.forEach( val => {
+                        if (item !== val) {
+                            val.show = false
+                        }
+                    });
+                }
+            },
+            data: {
+                input:'',
+                selectIndex:0,
+                menu: [
+                    {
+                        label: '',
+                        show: true,
+                        children: [
+                            {
+                                label: '云南'
+                            },
+                            {
+                                label: '北京'
+                            },
+                            {
+                                label: '上海'
+                            },
+                            {
+                                label: '上海'
+                            }
+                        ]
+                    }
+                ]
+            },
+            // methods:{
+            //     pussh(){
+            //         if(this.input){
+            //             this.children.push({
+            //                 label:this.input
+            //             })
+            //             this.input=""
+            //         }
+            //     }
+            // }
+           
+        })
+    </script>
+</body>
+</html>

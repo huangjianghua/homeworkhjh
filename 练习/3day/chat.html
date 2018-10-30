@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聊天窗口</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            background:rgb(212, 212, 212);
+        }
+        .warp{
+            border:1px solid #eee;
+            width: 500px;
+            height: 300px;
+            margin: 50px auto;
+            position: relative;
+            padding: 10px;
+        }
+        .warp .content{
+            width: 90%;
+            height: 265px;
+            padding: 0px 25px;
+            overflow: auto;
+            background: #eee;
+        }
+        .warp .content ul{
+            list-style: none; 
+        }
+        .warp .content ul li{
+            /* border: 1px solid red; */
+            height: 32px;
+            line-height: 32px;
+        }
+        .warp .content ul li.boy{
+            text-align: right;
+        }
+        .warp .content ul li span{
+            border-bottom-left-radius: 10px;
+            border-top-right-radius: 5px;
+            background:linear-gradient(aqua,dodgerblue,aqua);
+            padding: 1px 10px;
+            color: #fff;
+        }
+        .warp .input{
+            width: 398px;
+            height: 35px;
+            margin-left: 1px;
+            box-sizing: border-box;
+        }
+        .warp .btn1{
+            width: 50px;
+            height: 35px;
+            float: right;
+          
+        }
+        .warp .btn2{
+            width: 50px;
+            height: 35px;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="warp">
+        <div class="content">
+            <ul>
+                <li :class="item.target" v-for="(item,index) in tabs">
+                    {{item.uesername}}
+                    <span>{{item.content}}</span>
+                </li>
+            </ul>
+        </div>
+        <input class="input" v-model="input" @keydown.enter.32.parent="send" type="text"> <!-- v-model 双向绑定-->
+            <button class="btn1" @click="send">发送</button>
+            <button class="btn2" @click="sed">发送</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>      
+        var vm=new Vue({
+            el:".warp",
+            data:{
+                input:"",//双向绑定
+                tabs:[
+                   
+                ]
+            },
+            methods:{
+                send(){
+                    if(this.input){
+                        this.tabs.push({
+                            uesername:"哭泣骆驼:",
+                            target:"boy",
+                            content:this.input
+                        })
+                        this.input=""
+                    }
+                },
+                sed(){
+                        if(this.input){
+                            this.tabs.push({
+                                uesername:"番茄:",
+                                target:"baby",
+                                content:this.input
+                            })
+                            this.input=""
+                        }
+                }
+                
+            }
+        })
+        
+    </script>
+</body>
+</html>
